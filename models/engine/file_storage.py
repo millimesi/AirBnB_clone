@@ -1,11 +1,18 @@
 #!/usr/bin/python3
-""" 
+"""
 serializes instances to a JSON file and
 deserializes JSON file to instances
 """
 
 import json
 from models.base_model import BaseModel
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
+
 
 class FileStorage():
     """ serialization and Desrialization"""
@@ -32,7 +39,7 @@ class FileStorage():
             json.dump(objects, file)
 
     def reload(self):
-        """deserializes the JSON file to 
+        """deserializes the JSON file to
         __objects (only if the JSON file (__file_path) exists"""
         try:
             with open(self.__file_path, "r") as file:

@@ -1,11 +1,12 @@
 #!/usr/bin/python3
-""" Module for class BaseModel- that defines all common 
+""" Module for class BaseModel- that defines all common
 attributes/methods for other classes
 """
 
 
 from datetime import datetime
 import uuid
+
 
 class BaseModel():
     """ defines all common attributes/methods for other classes"""
@@ -32,14 +33,16 @@ class BaseModel():
         """ print: [<class name>] (<self.id>) <self.__dict__>"""
         return "[{}] ({}) {}".format(
             self.__class__.__name__, self.id, self.__dict__)
+
     def save(self):
         """ updates the public instance attribute
-        updated_at with the current datetime"""
+        updated_at with the current datetime
+        """
         from models import storage
-    
+
         self.updated_at = datetime.now()
         storage.save()
-    
+
     def to_dict(self):
         """  returns a dictionary containing all keys/values
         of __dict__ of the instance
