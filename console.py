@@ -4,6 +4,7 @@ consol for airbnb project
 """
 
 import cmd
+import re
 from models.base_model import BaseModel
 from models.user import User
 from models import storage
@@ -27,6 +28,26 @@ class HBNBCommand(cmd.Cmd):
             'Amenity': Amenity,
             'Review': Review
         }
+    def default(self, line):
+        """ will be called when invalid command takes given"""
+        cmddict = {
+            "all": self.do_all,
+            "show": self.do_show,
+            "destroy": self.do_destroy,
+            # "count": self.do_count,
+            "update": self.do_update
+        }
+        find_dot = re.search(r"\.", line)
+        if find_dot is not None:
+            class_name, cmd = line.split(".")
+            find_id = re.search(r"\((.*?)\)", cmd)
+            if find_id is not None:
+                command = [cmd[:find_id.span()[0]], find_id.group()[1:-1]]
+                if command[0] in cmddict.keys():
+                    do_cmd = "{} {}".format(class_name, command[1])
+                    return cmddict[command[0]](do_cmd)
+        print("*** Unknown syntax: {}".format(line))
+        return False
 
     def emptyline(self):
         """ overrides the empityline command to do nothing"""
