@@ -17,7 +17,7 @@ from models.review import Review
 
 class HBNBCommand(cmd.Cmd):
     """ console class iheritaed from cmd"""
-    prompt = "(hbnb) "
+    prompt = "(hbnb)    "
 
     cls = {
             'BaseModel': BaseModel,
